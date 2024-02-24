@@ -43,9 +43,9 @@ public class client {
         TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
         SSLContext ctx = SSLContext.getInstance("TLSv1.2");
         // keystore password (storepass)
-        ks.load(new FileInputStream("clientkeystore"), password);  
+        ks.load(new FileInputStream("../certificates/clientkeystore"), password);
         // truststore password (storepass);
-        ts.load(new FileInputStream("clienttruststore"), password); 
+        ts.load(new FileInputStream("../certificates/clienttruststore"), password);
         kmf.init(ks, password); // user password (keypass)
         tmf.init(ts); // keystore can be used as truststore here
         ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
@@ -53,7 +53,7 @@ public class client {
       } catch (Exception e) {
         throw new IOException(e.getMessage());
       }
-      SSLSocket socket = (SSLSocket)factory.createSocket(host, port);
+      SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
       System.out.println("\nsocket before handshake:\n" + socket + "\n");
 
       /*
