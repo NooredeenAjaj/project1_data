@@ -1,8 +1,15 @@
 1:Canser Center
-*
 01:lisa:Nurse:lisa12:
 02:alice:Nurse:alice02:
 03:daniel:Doctor:daniel03:
 04:noor:Doctor:noor03:
 05:isak:Patient:isak22:
-111:filip:governmentAgency:filip22:
+113:filip:GovernmentAgency:fil22:
++++
+2:Neurology Department:
+01:emma:Nurse:emma12:
+02:jacob:Nurse:jacob02:
+03:mia:Doctor:mia03:
+04:ethan:Doctor:ethan03:
+05:olivia:Patient:olivia22:
+112:leo:GovernmentAgency:leo22:
