@@ -32,7 +32,6 @@ public class server implements Runnable {
 
       db.readDatabase();
       ClientInput clientInput = new ClientInput(db); 
-      SecurityConfigManager securityConfigManager = new SecurityConfigManager();
 
       PrintWriter out = null;
       BufferedReader in = null;
@@ -46,11 +45,9 @@ public class server implements Runnable {
         String username = in.readLine();
         out.println("Enter Password:");
         String password = in.readLine();
-        loggedIn = clientInput.authenticateMember(username, password);
+        loggedIn = clientInput.login(username, password);
         if (!loggedIn) {
           out.println("Invalid Username or Password\n");
-        } else {
-          securityConfigManager.setCurrentUser(db.getUserByUserName(username));
         }
       }
       out.println("Successfully logged in!");

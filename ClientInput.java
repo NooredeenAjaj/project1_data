@@ -5,6 +5,7 @@ public class ClientInput {
     private Database db;
     private int patientId;
     private DatabaseHandler dbHandler;
+    private SecurityConfigManager securityManager;
     private final String readCommand = "read [recordId]";
     private final String writeCommand = "write [recordId]";
     private final String listCommand = "list [patientId]";
@@ -23,13 +24,11 @@ public ClientInput(Database db ){
     this.db = db;
     db.readDatabase();
     this.dbHandler = new DatabaseHandler(db);
+    this.securityManager = new SecurityConfigManager(db);
 }
 
-    public boolean authenticateMember(String username, String password) {
-        Person person =  db.getUserByUserName(username);
-         
-        return person.getPassword().equals(password);
-       
+    public boolean login(String username, String password) {
+        return securityManager.authenticateUser(username, password);
     }
 
     public void Menu() {
