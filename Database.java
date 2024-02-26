@@ -127,7 +127,7 @@ public class Database {
         Optional<Person> user = users.stream()
             .filter(u -> u.getUsername().equals(username))
             .findAny();
-        return user.getOrElse(null);
+        return user.orElse(null);
     }
 
     public List<Record> getRecordsByWorkerId(int workerId){
