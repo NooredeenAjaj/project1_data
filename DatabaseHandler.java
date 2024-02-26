@@ -16,13 +16,23 @@ public class DatabaseHandler {
 
     public String read(int recordId){
         Record record = db.getRecordByRecordId(recordId);
-        return record.verboseToString();
+        if(securityConfigManager.checkAccess(record, "read")){
+            return record.verboseToString();
+        }else{
+            throw new SecurityException();
+        }
+        
+        
     }
 
     public void write(int recordId, String comment){     
         Record record = db.getRecordByRecordId(recordId);
-        securityConfigManager.checkAccess(record, "write");
-        record.addComment(comment);   
+        
+        if(securityConfigManager.checkAccess(record, "write")){
+            record.addComment(comment);   
+        }else{
+            throw new SecurityException();
+        }
     }
 
     public void create(int recordId, int patientId, int workerId, String division, String description){

@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Database {
     private final String DELIMITER = ";";
@@ -76,7 +78,7 @@ public class Database {
                     String[] attributes = line.split(DELIMITER);
                     int recordId = Integer.parseInt(attributes[0]);
                     int patientId = Integer.parseInt(attributes[1]);
-                    int workerId = Integer.parseInt(attributes[2]);
+                    List<Integer> workerId = Arrays.stream(attributes[2].split("\\|")).map(Integer::parseInt).collect(Collectors.toList());
                     String division = attributes[3];
                     String description = attributes[4];
                     List<String> comments = new ArrayList<>();
@@ -132,7 +134,7 @@ public class Database {
 
     public List<Record> getRecordsByWorkerId(int workerId){
         List<Record> foundRecords = records.stream()
-            .filter(r -> r.getWorkerId() == workerId)
+            .filter(r -> r.getWorkerIds().contains(workerId))
             .toList();
 
         return foundRecords;

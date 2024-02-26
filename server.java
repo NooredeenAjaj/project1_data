@@ -51,7 +51,6 @@ public class server implements Runnable {
         loggedIn = clientInput.login(username, password);
         if (!loggedIn) {
           out.println("Invalid Username or Password");
-          out.println("\n");
         }
       }
       out.println("Successfully logged in!");

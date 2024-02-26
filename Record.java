@@ -6,26 +6,26 @@ import java.util.List;
 public class Record {
     private int recordId;
     private int patientId;
-    private int workerId;
+    private List<Integer> workerIds;
     private String division;
     private String description;
     private List<String> comments;
     private final String DELIMITER = ":";
 
-    public Record(int recordId, int patientId, int workerId, String division, String description,
+    public Record(int recordId, int patientId, List<Integer> workerIds, String division, String description,
             List<String> comments) {
         this.recordId = recordId;
         this.patientId = patientId;
-        this.workerId = workerId;
+        this.workerIds = workerIds;
         this.division = division;
         this.description = description;
         this.comments = comments;
     }
 
-    public Record(int recordId, int patientId, int workerId, String division, String description) {
+    public Record(int recordId, int patientId, List<Integer> workerIds, String division, String description) {
         this.recordId = recordId;
         this.patientId = patientId;
-        this.workerId = workerId;
+        this.workerIds = workerIds;
         this.division = division;
         this.description = description;
         this.comments = new ArrayList<>();
@@ -43,8 +43,8 @@ public class Record {
         return patientId;
     }
 
-    public int getWorkerId() {
-        return workerId;
+    public List<Integer> getWorkerIds() {
+        return workerIds;
     }
 
     public String getDivision() {
@@ -69,12 +69,16 @@ public class Record {
         StringBuilder sb = new StringBuilder();
         sb.append("RecordId : " + recordId + newLine);
         sb.append("PatientId : " + patientId + newLine);
+        sb.append("Worker ids: " + newLine);
+        for(Integer id : workerIds){
+            sb.append(id + newLine);
+        }
         sb.append("Division: " + division + newLine);
         sb.append("Description: " + description + newLine);
-        sb.append("Comments: " + newLine);
+        sb.append("Comments: ");
         for(String comment : comments){
-            sb.append(" - " + comment);
             sb.append(newLine);
+            sb.append(" - " + comment);
         }
 
         return sb.toString();

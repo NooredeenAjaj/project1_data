@@ -114,8 +114,9 @@ public ClientInput(Database db, BufferedReader in, PrintWriter out){
         }catch(SecurityException securityException){
             printOut("You don't have the permission to read this record");
         }catch(Exception unexpected){
-            printOut("Invalid arguments for read");
-            printOut("Excpected format: " + readCommand);
+            out.println("Invalid arguments for read");
+            out.println("Excpected format: " + readCommand);
+            out.println("\n");
         }
     }
 
@@ -125,9 +126,15 @@ public ClientInput(Database db, BufferedReader in, PrintWriter out){
             String comment = args[2];
             dbHandler.write(recordId, comment);
             printOut("Successfully wrote to record: " + recordId);
-        }catch(Exception unexpected){
-            printOut("Invalid arguments for read");
-            printOut("Excpected format: " + readCommand);
+        }catch(SecurityException securityException){
+            out.println("You don't have the permission to write to this record");
+            out.println("\n");
+        }
+        
+        catch(Exception unexpected){
+            out.println("Invalid arguments for read");
+            out.println("Excpected format: " + readCommand);
+            out.println("\n");
         }
     }
 
