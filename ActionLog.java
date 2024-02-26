@@ -1,5 +1,3 @@
-package clientUtil;
-
 import java.time.LocalDateTime;
 
 public class ActionLog {

@@ -1,4 +1,4 @@
-package clientUtil;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 public class Database {
     private final String DELIMITER = ";";
-    private File usersFile = new File("../Database/personInformation");
-    private File recordsFile = new File("../Database/journals");
-    private File logFile = new File("../Database/logs");
+    private File usersFile = new File("personInformation");
+    private File recordsFile = new File("records");
+    private File logFile = new File("logs");
     private List<Person> users = new ArrayList<>();
     private List<Record> records = new ArrayList<>();
     private List<ActionLog> logs = new ArrayList<>();
@@ -110,7 +110,7 @@ public class Database {
                     int workerId = Integer.parseInt(attributes[0]);
                     int patientId = Integer.parseInt(attributes[1]);
                     String action = attributes[2];
-                    LocalDateTime time = LocalDateTime.parse(attributes[3]);
+                    LocalDateTime time = LocalDateTime.parse((CharSequence) attributes[3]);
                     
                     logs.add(new ActionLog(workerId, patientId, action, time));
                 }
@@ -127,7 +127,7 @@ public class Database {
         Optional<Person> user = users.stream()
             .filter(u -> u.getUsername().equals(username))
             .findAny();
-        return user.orElse(null);
+        return user.getOrElse(null);
     }
 
     public List<Record> getRecordsByWorkerId(int workerId){

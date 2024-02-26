@@ -1,4 +1,4 @@
-package clientUtil;
+
 
 public class SecurityConfigManager {
     private Person currentUser;

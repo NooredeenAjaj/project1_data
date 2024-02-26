@@ -2,8 +2,6 @@ import java.io.*;
 import java.net.*;
 import javax.net.*;
 import javax.net.ssl.*;
-import databaseManager.*;
-import clientUtil.*;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
@@ -44,18 +42,18 @@ public class server implements Runnable {
       boolean loggedIn = false;
 
       while (!loggedIn) {
-        System.out.println("Enter Username:");
+        out.println("Enter Username:");
         String username = in.readLine();
-        System.out.println("Enter Password:");
+        out.println("Enter Password:");
         String password = in.readLine();
         loggedIn = clientInput.authenticateMember(username, password);
         if (!loggedIn) {
-          System.out.println("Invalid Username or Password\n");
+          out.println("Invalid Username or Password\n");
         } else {
           securityConfigManager.setCurrentUser(db.getUserByUserName(username));
         }
       }
-      System.out.println("Successfully logged in!");
+      out.println("Successfully logged in!");
 
       String clientMsg = null;
       while ((clientMsg = in.readLine()) != null) {
@@ -112,9 +110,9 @@ public class server implements Runnable {
         KeyStore ts = KeyStore.getInstance("JKS");
         char[] password = "password".toCharArray();
         // keystore password (storepass)
-        ks.load(new FileInputStream("../certificates/serverkeystore"), password);
+        ks.load(new FileInputStream("certificates/serverkeystore"), password);
         // truststore password (storepass)
-        ts.load(new FileInputStream("../certificates/servertruststore"), password);
+        ts.load(new FileInputStream("certificates/servertruststore"), password);
         kmf.init(ks, password); // certificate password (keypass)
         tmf.init(ts); // possible to use keystore as truststore here
         ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);

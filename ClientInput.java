@@ -1,6 +1,4 @@
-package databaseManager;
 import java.sql.ClientInfoStatus;
-import clientUtil.*;
 import java.util.Scanner;
 
 public class ClientInput {
