@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Database {
@@ -21,6 +22,7 @@ public class Database {
         loadRecords();
         loadLogs();
     }
+
 
     private void loadUsers(){
         try {
@@ -121,8 +123,11 @@ public class Database {
         }
     }
 
-    public void getUsers(){
-
+    public Person getUserByUserName(String username){
+        Optional<Person> user = users.stream()
+            .filter(u -> u.getUsername().equals(username))
+            .findAny();
+        return user.orElse(null);
     }
 
     public List<Record> getRecordsByWorkerId(int workerId){
@@ -141,7 +146,18 @@ public class Database {
         return foundRecords;
     }
 
+    public Record getRecordByRecordId(int recordId){
+        Optional<Record> foundRecord = records.stream()
+            .filter(r -> r.getRecordId() == recordId)
+            .findAny();
+
+        return foundRecord.orElse(null);
+    }
+
     public void getLogs(){
 
+    }
+    public List<Record> getAllRecords(){
+        return records;
     }
 }

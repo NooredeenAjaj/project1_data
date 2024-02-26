@@ -2,6 +2,8 @@ import java.io.*;
 import java.net.*;
 import javax.net.*;
 import javax.net.ssl.*;
+import databaseManager.*;
+import clientUtil.*;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
@@ -9,6 +11,7 @@ import java.security.cert.X509Certificate;
 public class server implements Runnable {
   private ServerSocket serverSocket = null;
   private static int numConnectedClients = 0;
+  private final Database db = new Database();
 
   public server(ServerSocket ss) throws IOException {
     serverSocket = ss;
@@ -27,10 +30,32 @@ public class server implements Runnable {
       System.out.println("client name (cert subject DN field): " + subject);
       System.out.println(numConnectedClients + " concurrent connection(s)\n");
 
+      // Load database and login user
+
+      db.readDatabase();
+      ClientInput clientInput = new ClientInput(db); 
+      SecurityConfigManager securityConfigManager = new SecurityConfigManager();
+
       PrintWriter out = null;
       BufferedReader in = null;
       out = new PrintWriter(socket.getOutputStream(), true);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+      boolean loggedIn = false;
+
+      while (!loggedIn) {
+        System.out.println("Enter Username:");
+        String username = in.readLine();
+        System.out.println("Enter Password:");
+        String password = in.readLine();
+        loggedIn = clientInput.authenticateMember(username, password);
+        if (!loggedIn) {
+          System.out.println("Invalid Username or Password\n");
+        } else {
+          securityConfigManager.setCurrentUser(db.getUserByUserName(username));
+        }
+      }
+      System.out.println("Successfully logged in!");
 
       String clientMsg = null;
       while ((clientMsg = in.readLine()) != null) {

@@ -69,7 +69,7 @@ public class client {
       String subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
       System.out.println("certificate name (subject DN field) on certificate received from server:\n" + subject + "\n");
       System.out.println("socket after handshake:\n" + socket + "\n");
-      System.out.println("secure connection established\n\n");
+      System.out.println("secure connection established\n\n\n");
 
       BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
       PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
