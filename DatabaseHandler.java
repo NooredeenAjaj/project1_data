@@ -7,9 +7,11 @@ import java.util.List;
 
 public class DatabaseHandler {
     private final Database db;
+    private final SecurityConfigManager securityConfigManager;
 
-    public DatabaseHandler(Database db) {
+    public DatabaseHandler(Database db, SecurityConfigManager securityConfigManager) {
         this.db = db;
+        this.securityConfigManager = securityConfigManager;
     }
 
     public String read(int recordId){
@@ -18,7 +20,9 @@ public class DatabaseHandler {
     }
 
     public void write(int recordId, String comment){     
-        db.getRecordByRecordId(recordId).addComment(comment);   
+        Record record = db.getRecordByRecordId(recordId);
+        securityConfigManager.checkAccess(record, "write");
+        record.addComment(comment);   
     }
 
     public void create(int recordId, int patientId, int workerId, String division, String description){

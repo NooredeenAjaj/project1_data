@@ -8,13 +8,32 @@ public class SecurityConfigManager {
     }
 
     public boolean authenticateUser(String username, String password){
-        Person person =  db.getUserByUserName(username);
+            Person person =  db.getUserByUserName(username);
          
-        if(person.getPassword().equals(password)){
-            setCurrentUser(person);
-            return true;
-        }else{
-            return false;
+            if(person != null && person.getPassword().equals(password)){
+                setCurrentUser(person);
+                return true;
+            }
+
+        return false;
+
+    }
+
+    public boolean checkAccess(Record record, String action){
+        switch (action) {
+            case "read":
+                
+
+                if(currentUser instanceof Nurse || currentUser instanceof Doctor){
+                    return currentUser.getID() == record.getWorkerId();
+                }
+
+                
+                
+                break;
+        
+            default:
+                break;
         }
     }
 

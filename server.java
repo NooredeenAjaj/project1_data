@@ -28,41 +28,37 @@ public class server implements Runnable {
       System.out.println("client name (cert subject DN field): " + subject);
       System.out.println(numConnectedClients + " concurrent connection(s)\n");
 
-      // Load database and login user
-
-      db.readDatabase();
-      ClientInput clientInput = new ClientInput(db); 
-
       PrintWriter out = null;
       BufferedReader in = null;
       out = new PrintWriter(socket.getOutputStream(), true);
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+      // Load database and login user
+
+      db.readDatabase();
+      ClientInput clientInput = new ClientInput(db, in, out); 
+
       boolean loggedIn = false;
 
+      out.flush();
       while (!loggedIn) {
         out.println("Enter Username:");
+        out.println("\n");
         String username = in.readLine();
         out.println("Enter Password:");
+        out.println("\n");
         String password = in.readLine();
         loggedIn = clientInput.login(username, password);
         if (!loggedIn) {
-          out.println("Invalid Username or Password\n");
+          out.println("Invalid Username or Password");
+          out.println("\n");
         }
       }
       out.println("Successfully logged in!");
 
-      String clientMsg = null;
-      while ((clientMsg = in.readLine()) != null) {
-        String rev = new StringBuilder(clientMsg).reverse().toString();
-        System.out.println("received '" + clientMsg + "' from client");
-        System.out.print("sending '" + rev + "' to client...");
-        out.println(rev);
-        out.flush();
-        System.out.println("done\n");
-      }
-      in.close();
-      out.close();
+      // This is the print-read loop
+      clientInput.getUserInput();
+
       socket.close();
       numConnectedClients--;
       System.out.println("client disconnected");

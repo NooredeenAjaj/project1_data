@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 import javax.net.ssl.*;
-import java.security.cert.X509Certificate;
+
 import java.security.KeyStore;
 import java.security.cert.*;
 
@@ -74,18 +74,25 @@ public class client {
       BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
       PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
       BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-      String msg;
+      String clientMsg;
+      String serverMsg;
       for (;;) {
+        
+        while((serverMsg = in.readLine()) != null){
+          if(serverMsg.isEmpty()){
+            in.readLine();
+            break;
+          }
+          System.out.println(serverMsg);
+        }
         System.out.print(">");
-        msg = read.readLine();
-        if (msg.equalsIgnoreCase("quit")) {
+        
+        clientMsg = read.readLine();
+        if (clientMsg.equalsIgnoreCase("quit")) {
           break;
         }
-        System.out.print("sending '" + msg + "' to server...");
-        out.println(msg);
+        out.println(clientMsg);
         out.flush();
-        System.out.println("done");
-        System.out.println("received '" + in.readLine() + "' from server\n");
       }
       in.close();
       out.close();
