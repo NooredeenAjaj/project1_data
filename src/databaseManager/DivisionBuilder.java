@@ -78,21 +78,4 @@ public class DivisionBuilder {
         return res;
     }
 
-    public static void main(String[] args) {
-        {
-            DivisionBuilder builder = new DivisionBuilder();
-            builder.build();
-
-            for (Division division : divisions) {
-                System.out.println("Division ID: " + division.getID() + ", Name: " +
-                        division.getName());
-                System.out.println("Members:");
-                for (Person person : division.getMembers()) {
-                    System.out.println("\t" + person.getUsername() + " ID" + person.getID() + " div "
-                            + person.getDivision() + " pas " + person.getPassword());
-                }
-            }
-
-        }
-    }
 }

@@ -1,15 +1,12 @@
-1:Canser Center
-01:lisa:Nurse:lisa12:
-02:alice:Nurse:alice02:
-03:daniel:Doctor:daniel03:
-04:noor:Doctor:noor03:
-05:isak:Patient:isak22:
-113:filip:GovernmentAgency:fil22:
-+++
-2:Neurology Department:
-01:emma:Nurse:emma12:
-02:jacob:Nurse:jacob02:
-03:mia:Doctor:mia03:
-04:ethan:Doctor:ethan03:
-05:olivia:Patient:olivia22:
-112:leo:GovernmentAgency:leo22:
+01;lisa;Nurse;Cancer Center;lisa12;
+02;alice;Nurse;Cancer Center;alice02;
+03;daniel;Doctor;Cancer Center;daniel03;
+04;noor;Doctor;Cancer Center;noor03;
+05;isak;Patient;Cancer Center;isak22;
+113;filip;GovernmentAgency;Cancer Center;fil22;
+101;emma;Nurse;Neurology Department;emma12;
+22;jacob;Nurse;Neurology Department;jacob02;
+33;mia;Doctor;Neurology Department;mia03;
+44;ethan;Doctor;Neurology Department;ethan03;
+55;olivia;Patient;Neurology Department;olivia22;
+112;leo;GovernmentAgency;Neurology Department;leo22;
