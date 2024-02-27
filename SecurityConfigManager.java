@@ -30,14 +30,9 @@ public class SecurityConfigManager {
                     return true;
                 }
 
-                if (currentUser instanceof Doctor &&
-                        currentUser.getDivision().equals(record.getDivision())) {
-                    return true;
-                }
-
-                if (currentUser instanceof Nurse &&
-                        currentUser.getDivision().equals(record.getDivision()) &&
-                        record.getWorkerIds().contains(currentUser.getID())) {
+                if ((currentUser instanceof Nurse || currentUser instanceof Doctor) &&
+                        (currentUser.getDivision().equals(record.getDivision()) ||
+                        record.getWorkerIds().contains(currentUser.getID()))) {
                     return true;
                 }
 
@@ -48,14 +43,14 @@ public class SecurityConfigManager {
 
             case "write":
                 if ((currentUser instanceof Doctor || currentUser instanceof Nurse) &&
-                        currentUser.getDivision().equals(record.getDivision()) &&
-                        record.getWorkerIds().contains(currentUser.getID())) {
+                        currentUser.getDivision().equals(record.getDivision())) {
                     return true;
                 }
                 break;
 
             case "create":
-                if (currentUser instanceof Doctor) {
+                if (currentUser instanceof Doctor 
+                    && record.getWorkerIds().contains(currentUser.getID())) {
                     return true;
                 }
                 break;

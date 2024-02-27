@@ -9,7 +9,7 @@ public class Record {
     private String division;
     private String description;
     private List<String> comments;
-    private String DELIMITER = ":";
+    private String DELIMITER = ";";
 
     public Record(int recordId, int patientId, List<Integer> workerIds, String division, String description,
             List<String> comments) {
