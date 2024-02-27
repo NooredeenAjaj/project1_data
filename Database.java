@@ -133,7 +133,7 @@ public class Database {
     public List<Record> getRecordsByWorkerId(int workerId) {
         List<Record> foundRecords = records.stream()
                 .filter(r -> r.getWorkerIds().contains(workerId))
-                .toList();
+                .collect(Collectors.toList());
 
         return foundRecords;
     }
@@ -141,7 +141,7 @@ public class Database {
     public List<Record> getRecordsByPatientId(int patientId) {
         List<Record> foundRecords = records.stream()
                 .filter(r -> r.getPatientId() == patientId)
-                .toList();
+                .collect(Collectors.toList());
 
         return foundRecords;
     }
