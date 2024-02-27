@@ -22,16 +22,22 @@ public class SecurityConfigManager {
     public boolean checkAccess(Record record, String action) {
         // Doctor and nurse have to be in the same division and be associated with the
         // record
-        if ((currentUser instanceof Doctor || currentUser instanceof Nurse)
-                && (!currentUser.getDivision().equals(record.getDivision()) ||
-                        !record.getWorkerIds().contains(currentUser.getID()))) {
-            return false;
-        }
 
         switch (action) {
             case "read":
-                if (currentUser instanceof Nurse || currentUser instanceof Doctor
-                        || currentUser instanceof GovernmentAgency) {
+
+                if (currentUser instanceof GovernmentAgency) {
+                    return true;
+                }
+
+                if (currentUser instanceof Doctor &&
+                        currentUser.getDivision().equals(record.getDivision())) {
+                    return true;
+                }
+
+                if (currentUser instanceof Nurse &&
+                        currentUser.getDivision().equals(record.getDivision()) &&
+                        record.getWorkerIds().contains(currentUser.getID())) {
                     return true;
                 }
 
@@ -41,7 +47,9 @@ public class SecurityConfigManager {
                 break;
 
             case "write":
-                if (currentUser instanceof Nurse || currentUser instanceof Doctor) {
+                if ((currentUser instanceof Doctor || currentUser instanceof Nurse) &&
+                        currentUser.getDivision().equals(record.getDivision()) &&
+                        record.getWorkerIds().contains(currentUser.getID())) {
                     return true;
                 }
                 break;
