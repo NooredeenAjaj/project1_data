@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ public class Record {
     private String division;
     private String description;
     private List<String> comments;
-    private final String DELIMITER = ":";
+    private String DELIMITER = ":";
 
     public Record(int recordId, int patientId, List<Integer> workerIds, String division, String description,
             List<String> comments) {
@@ -55,7 +54,7 @@ public class Record {
         return description;
     }
 
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(String.valueOf(recordId) + DELIMITER);
         sb.append(String.valueOf(patientId) + DELIMITER);
@@ -64,23 +63,46 @@ public class Record {
         return sb.toString();
     }
 
-    public String verboseToString(){
+    public String verboseToString() {
         String newLine = "\n";
         StringBuilder sb = new StringBuilder();
         sb.append("RecordId : " + recordId + newLine);
         sb.append("PatientId : " + patientId + newLine);
         sb.append("Worker ids: " + newLine);
-        for(Integer id : workerIds){
+        for (Integer id : workerIds) {
             sb.append(id + newLine);
         }
         sb.append("Division: " + division + newLine);
         sb.append("Description: " + description + newLine);
         sb.append("Comments: ");
-        for(String comment : comments){
+        for (String comment : comments) {
             sb.append(newLine);
             sb.append(" - " + comment);
         }
 
         return sb.toString();
     }
+
+    public String dbToString() {
+        DELIMITER = ";";
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(recordId).append(DELIMITER)
+                .append(patientId).append(DELIMITER);
+        for (Integer w : workerIds) {
+            sb.append(w).append("|");
+        }
+
+        sb.append(DELIMITER)
+                .append(division).append(DELIMITER)
+                .append(description);
+
+        for (String comment : comments) {
+            sb.append(DELIMITER).append(comment);
+        }
+
+        DELIMITER = ":";
+        return sb.toString();
+    }
+
 }

@@ -1,2 +1,5 @@
-01;05;101|20|30;Cancer Center;This is a description of a medical record;Kommentar 1;Kommentar 2; Kommentar 3
-02;05;101;Cancer Center;Big problem with the patient!!;Comment about the big problem
+1;5;101|20|30|;Cancer Center;This is a description of a medical record;Kommentar 1;Kommentar 2; Kommentar 3
+2;5;101|;Cancer Center;Big problem with the patient!!;Comment about the big problem
+1;5;101|20|30|;Cancer Center;This is a description of a medical record;Kommentar 1;Kommentar 2; Kommentar 3
+2;5;101|;Cancer Center;Big problem with the patient!!;Comment about the big problem
+1;101;201|202|203|;Onkologi;Patientens tillstånd stabilt.;Behandling påbörjad 2024-01-15;Nästa utvärdering planerad till 2024-02-20

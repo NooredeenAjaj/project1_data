@@ -1,6 +1,7 @@
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,43 +15,58 @@ public class DatabaseHandler {
         this.securityConfigManager = securityConfigManager;
     }
 
-    public String read(int recordId){
+    public String read(int recordId) {
         Record record = db.getRecordByRecordId(recordId);
-        if(securityConfigManager.checkAccess(record, "read")){
+        if (securityConfigManager.checkAccess(record, "read")) {
             return record.verboseToString();
-        }else{
+        } else {
             throw new SecurityException();
         }
-        
-        
+
     }
 
-    public void write(int recordId, String comment){     
+    public void write(int recordId, String comment) {
         Record record = db.getRecordByRecordId(recordId);
-        
-        if(securityConfigManager.checkAccess(record, "write")){
-            record.addComment(comment);   
-        }else{
+
+        if (securityConfigManager.checkAccess(record, "write")) {
+            record.addComment(comment);
+        } else {
             throw new SecurityException();
         }
     }
 
-    public void create(int recordId, int patientId, int workerId, String division, String description){
+    public void create(int recordId, int patientId, int workerId, String division, String description) {
 
     }
-    
 
-    public void delete(int recordId){
-        
+    public void delete(int recordId) {
+
     }
-    public void writeRecordsToFile(String fileName) {
+
+    public void writeToLogs() {
+        writeToFile("logs", db.getLogs());
+    }
+
+    public void writeToRecords() {
+        writeToFile("records", db.getRecords());
+    }
+
+    private <E> void writeToFile(String fileName, List<E> items) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Record record : db.getAllRecords()) {
-                writer.write(record.toString());
-                writer.newLine(); 
+            for (E item : items) {
+                if (item instanceof ActionLog) {
+                    writer.write(((ActionLog) item).dbToString());
+                } else {
+                    writer.write(((Record) item).dbToString());
+
+                }
+
+                writer.newLine();
             }
+
         } catch (IOException e) {
             System.err.println("Ett fel inträffade vid skrivning till fil: " + e.getMessage());
         }
     }
+
 }
