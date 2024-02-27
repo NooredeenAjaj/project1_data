@@ -154,6 +154,14 @@ public class Database {
         return foundRecord.orElse(null);
     }
 
+    public void saveRecord(Record record) {
+        records.add(record);
+    }
+
+    public void deleteRecord(Record record) {
+        records.remove(record);
+    }
+
     public List<ActionLog> getLogs() {
         return logs;
     }

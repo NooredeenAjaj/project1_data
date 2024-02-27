@@ -17,30 +17,33 @@ public class DatabaseHandler {
 
     public String read(int recordId) {
         Record record = db.getRecordByRecordId(recordId);
-        if (securityConfigManager.checkAccess(record, "read")) {
-            return record.verboseToString();
-        } else {
-            throw new SecurityException();
-        }
+        checkAccess(record, "read");
+        return record.verboseToString();
 
     }
 
     public void write(int recordId, String comment) {
         Record record = db.getRecordByRecordId(recordId);
-
-        if (securityConfigManager.checkAccess(record, "write")) {
-            record.addComment(comment);
-        } else {
-            throw new SecurityException();
-        }
+        checkAccess(record, "write");
+        record.addComment(comment);
     }
 
-    public void create(int recordId, int patientId, int workerId, String division, String description) {
-
+    public void create(int recordId, int patientId, List<Integer> workerIds, String division, String description) {
+        Record record = new Record(recordId, patientId, workerIds, division, description);
+        checkAccess(record, "create");
+        db.saveRecord(record);
     }
 
     public void delete(int recordId) {
+        Record record = db.getRecordByRecordId(recordId);
+        checkAccess(record, "delete");
+        db.deleteRecord(record);
+    }
 
+    private void checkAccess(Record record, String action) {
+        if (!securityConfigManager.checkAccess(record, action)) {
+            throw new SecurityException();
+        }
     }
 
     public void writeToLogs() {
