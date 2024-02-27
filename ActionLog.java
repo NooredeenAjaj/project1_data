@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class ActionLog {
     private int userId;
@@ -24,13 +25,19 @@ public class ActionLog {
     }
 
     public String dbToString() {
+                
+        // Define the desired format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        
+        // Format the LocalDateTime object
+        String formattedDateTime = dateTime.format(formatter);
 
         StringBuilder sb = new StringBuilder();
 
         sb.append(userId).append(";")
                 .append(recordId).append(";")
                 .append(action).append(";")
-                .append(dateTime).append(";");
+                .append(formattedDateTime).append(";");
 
         return sb.toString();
     }

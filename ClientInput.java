@@ -31,7 +31,6 @@ public class ClientInput {
 
     public ClientInput(Database db, BufferedReader in, PrintWriter out) {
         this.db = db;
-        db.readDatabase();
         this.securityManager = new SecurityConfigManager(db);
         this.dbHandler = new DatabaseHandler(db, securityManager);
         this.in = in;

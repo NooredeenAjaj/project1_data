@@ -3,7 +3,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +29,7 @@ public class DatabaseHandler {
     public String read(int recordId) {
         Record record = db.getRecordByRecordId(recordId);
         logAction("read", recordId);
+        writeToLogs();
         checkAccess(record, "read");
         return record.verboseToString();
 
@@ -77,7 +82,7 @@ public class DatabaseHandler {
     }
 
     private <E> void writeToFile(String fileName, List<E> items) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (E item : items) {
                 if (item instanceof ActionLog) {
                     writer.write(((ActionLog) item).dbToString());
