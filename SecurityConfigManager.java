@@ -73,6 +73,10 @@ public class SecurityConfigManager {
         return false;
     }
 
+    public Person getCurrentUser() {
+        return currentUser;
+    }
+
     private void setCurrentUser(Person currentUser) {
         this.currentUser = currentUser;
     }

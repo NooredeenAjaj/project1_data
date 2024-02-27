@@ -162,6 +162,10 @@ public class Database {
         records.remove(record);
     }
 
+    public void addLog(ActionLog actionLog) {
+        logs.add(actionLog);
+    }
+
     public List<ActionLog> getLogs() {
         return logs;
     }

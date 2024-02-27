@@ -39,6 +39,7 @@ public class server implements Runnable {
       // Load database and login user
 
       db.readDatabase();
+      System.out.println(db.getRecords().size());
       ClientInput clientInput = new ClientInput(db, in, out);
 
       boolean loggedIn = false;
