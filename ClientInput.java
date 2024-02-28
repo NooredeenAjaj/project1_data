@@ -18,7 +18,7 @@ public class ClientInput {
     private final String readCommand = "read [recordId]";
     private final String writeCommand = "write [recordId] [comment]";
     private final String listCommand = "list [patient name]";
-    private final String createCommand = "create [patient name] [associated nurse] [division] [\"description\"]";
+    private final String createCommand = "create [patient name] [associated nurse] [\"division\"] [\"description\"]";
     private final String deleteCommand = "delete [recordId]";
     private String[] menu = {
             "Please choose an option: ",
@@ -107,8 +107,7 @@ public class ClientInput {
 
     private void handleCreate(String[] inputArgs) {
         String patientName = inputArgs[1];
-        List<String> workerNames = Arrays.stream(inputArgs[2].split("\\|"))
-                .collect(Collectors.toList());
+        List<String> workerNames = List.of(inputArgs[2]);
 
         String divisionAndDescription = String.join(" ", Arrays.copyOfRange(inputArgs, 3, inputArgs.length));
         String[] separated = divisionAndDescription.split("\" \"");
