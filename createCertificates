@@ -1,0 +1,11 @@
+keytool -import -file ca.crt -alias ca -keystore govts -storepass govpass -noprompt
+
+keytool -genkeypair -alias gov -keyalg RSA -keysize 2048 -keystore govks -storepass govpass -dname "CN=Gov" -storetype pkcs12
+
+keytool -certreq -alias gov -keystore govks -storepass govpass -file gov.csr
+
+openssl x509 -req -in gov.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out gov.crt -days 365 -sha256
+
+keytool -import -file ca.crt -alias ca -keystore govks -storepass govpass -noprompt
+
+keytool -import -file gov.crt -alias gov -keystore govks -storepass govpass -noprompt
