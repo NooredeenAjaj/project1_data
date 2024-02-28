@@ -2,9 +2,15 @@
 
 public class Doctor extends Person {
 
-    public Doctor(String name, String division) {
-        super(name, division);
+    String treatingPatient;
 
+    public Doctor(String name, String division, String treatingPatient) {
+        super(name, division);
+        this.treatingPatient = treatingPatient;
+    }
+
+    public String getTreatingPatientName() {
+      return treatingPatient;
     }
 
 }

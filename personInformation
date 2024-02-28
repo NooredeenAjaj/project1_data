@@ -1,11 +1,11 @@
-Lisa;Nurse;Cancer;lisapass;
-Alice;Nurse;Cancer;alicepass;
-Jacob;Nurse;Neurology;jacobpass;
-Emma;Nurse;Neurology;emmapass;
-Daniel;Doctor;Cancer;danielpass;
-Noor;Doctor;Cancer;noorpass;
-Mia;Doctor;Neurology;miapass;
-Ethan;Doctor;Neurology;ethanpass
-Isak;Patient;Cancer;isakpass;
-Olivia;Patient;Neurology;oliviapass;
-Gov;GovernmentAgency;Cancer;govpass;
+Lisa;Nurse;Physiology; ;lisapass;
+Alice;Nurse;Physiology; ;alicepass;
+Jacob;Nurse;Neurology; ;jacobpass;
+Emma;Nurse;Neurology; ;emmapass;
+Daniel;Doctor;Physiology;Isak;danielpass;
+Noor;Doctor;Physiology;Olivia;noorpass;
+Filip;Doctor;Neurology; ;miapass;
+Ethan;Doctor;Neurology; ;ethanpass;
+Isak;Patient; ; ;isakpass;
+Olivia;Patient; ; ;oliviapass;
+Gov;GovernmentAgency; ; ;govpass;

@@ -35,13 +35,13 @@ public class Database {
                     String name = attributes[0];
                     String role = attributes[1];
                     String division = attributes[2];
-
+                    String treatingPatient = attributes[3];
                     switch (role) {
                         case "Nurse":
                             users.add(new Nurse(name,division));
                             break;
                         case "Doctor":
-                            users.add(new Doctor(name,division));
+                            users.add(new Doctor(name,division,treatingPatient));
                             break;
                         case "Patient":
                             users.add(new Patient(name,division));

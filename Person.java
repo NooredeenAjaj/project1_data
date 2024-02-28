@@ -5,6 +5,7 @@ public class Person {
     private String name;
 
     public Person(String name, String division) {
+        this.name = name;
         this.division = division;
     }
     

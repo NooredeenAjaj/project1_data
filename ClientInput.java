@@ -17,8 +17,8 @@ public class ClientInput {
 
     private final String readCommand = "read [recordId]";
     private final String writeCommand = "write [recordId] [comment]";
-    private final String listCommand = "list [patientId]";
-    private final String createCommand = "create [patientId] [workerId|workerId2|*] [division] [description]";
+    private final String listCommand = "list [patient name]";
+    private final String createCommand = "create [patient name] [associated nurse] [division] [\"description\"]";
     private final String deleteCommand = "delete [recordId]";
     private String[] menu = {
             "Please choose an option: ",
@@ -29,9 +29,9 @@ public class ClientInput {
             deleteCommand
     };
 
-    public ClientInput(Database db, BufferedReader in, PrintWriter out) {
+    public ClientInput(Database db, BufferedReader in, PrintWriter out, SecurityConfigManager scf) {
         this.db = db;
-        this.securityManager = new SecurityConfigManager(db);
+        this.securityManager = scf;
         this.dbHandler = new DatabaseHandler(db, securityManager);
         this.in = in;
         this.out = out;
@@ -106,7 +106,7 @@ public class ClientInput {
     }
 
     private void handleCreate(String[] inputArgs) {
-        int patientId = Integer.parseInt(inputArgs[1]);
+        String patientName = inputArgs[1];
         List<String> workerNames = Arrays.stream(inputArgs[2].split("\\|"))
                 .collect(Collectors.toList());
 

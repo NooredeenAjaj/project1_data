@@ -13,6 +13,7 @@ public class server implements Runnable {
   private ServerSocket serverSocket = null;
   private static int numConnectedClients = 0;
   private final Database db = new Database();
+  private final SecurityConfigManager scm = new SecurityConfigManager();
 
   public server(ServerSocket ss) throws IOException {
     serverSocket = ss;
@@ -25,11 +26,9 @@ public class server implements Runnable {
       newListener();
       SSLSession session = socket.getSession();
       Certificate[] cert = session.getPeerCertificates();
-      String subject = ((X509Certificate) cert[0]).getSubjectX500Principal().getName();
+      String user = ((X509Certificate) cert[0]).getSubjectX500Principal().getName().substring(3);
       numConnectedClients++;
-      System.out.println("client connected");
-      System.out.println("client name (cert subject DN field): " + subject);
-      System.out.println(numConnectedClients + " concurrent connection(s)\n");
+      System.out.println("\nLogged in as: " + user);
 
       PrintWriter out = null;
       BufferedReader in = null;
@@ -37,9 +36,11 @@ public class server implements Runnable {
       in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
       // Load database and login user
-
+      
       db.readDatabase();
-      ClientInput clientInput = new ClientInput(db, in, out);
+      scm.setCurrentUser(db.getUserByName(user));
+
+      ClientInput clientInput = new ClientInput(db, in, out, scm);
 
 
       // This is the print-read loop

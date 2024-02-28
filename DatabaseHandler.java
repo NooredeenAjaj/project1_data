@@ -1,14 +1,8 @@
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseHandler {
@@ -44,7 +38,7 @@ public class DatabaseHandler {
     }
 
     public void create(String patientName, List<String> workerNames, String division, String description) {
-        // This does not look good :(
+        
         workerNames.add(securityConfigManager.getCurrentUser().getName());
         int recordId = db.getRecords().size() + 1;
         Record record = new Record(recordId, patientName, workerNames, division, description);
