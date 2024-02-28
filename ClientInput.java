@@ -107,7 +107,8 @@ public class ClientInput {
 
     private void handleCreate(String[] inputArgs) {
         String patientName = inputArgs[1];
-        List<String> workerNames = List.of(inputArgs[2]);
+        List<String> workerNames = Arrays.stream(inputArgs[2].split("\\|"))
+                .collect(Collectors.toList());
 
         String divisionAndDescription = String.join(" ", Arrays.copyOfRange(inputArgs, 3, inputArgs.length));
         String[] separated = divisionAndDescription.split("\" \"");
