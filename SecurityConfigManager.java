@@ -7,18 +7,6 @@ public class SecurityConfigManager {
         this.db = db;
     }
 
-    public boolean authenticateUser(String username, String password) {
-        Person person = db.getUserByUserName(username);
-
-        if (person != null && person.getPassword().equals(password)) {
-            setCurrentUser(person);
-            return true;
-        }
-
-        return false;
-
-    }
-
     public boolean checkAccess(Record record, String action) {
         // Doctor and nurse have to be in the same division and be associated with the
         // record
@@ -50,7 +38,7 @@ public class SecurityConfigManager {
 
             case "create":
                 if (currentUser instanceof Doctor 
-                    && record.getWorkerIds().contains(currentUser.getID())) {
+                    && record.getWorkerNames().contains(currentUser.getName())) {
                     return true;
                 }
                 break;
@@ -72,7 +60,7 @@ public class SecurityConfigManager {
         return currentUser;
     }
 
-    private void setCurrentUser(Person currentUser) {
+    public void setCurrentUser(Person currentUser) {
         this.currentUser = currentUser;
     }
 

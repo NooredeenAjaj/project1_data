@@ -105,12 +105,12 @@ public class Database {
                 String line = scanner.nextLine();
                 if (line.length() > 0) {
                     String[] attributes = line.split(DELIMITER);
-                    int workerId = Integer.parseInt(attributes[0]);
-                    int patientId = Integer.parseInt(attributes[1]);
+                    String workerName = attributes[0];
+                    int recordID = Integer.parseInt(attributes[1]);
                     String action = attributes[2];
                     LocalDateTime time = LocalDateTime.parse((CharSequence) attributes[3]);
 
-                    logs.add(new ActionLog(workerId, patientId, action, time));
+                    logs.add(new ActionLog(workerName, recordID, action, time));
                 }
             }
 

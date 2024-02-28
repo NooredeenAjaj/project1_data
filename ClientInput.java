@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ClientInput {
     private Database db;
-    private int patientId;
+    private String patientName;
     private DatabaseHandler dbHandler;
     private SecurityConfigManager securityManager;
     private PrintWriter out;
@@ -37,9 +37,6 @@ public class ClientInput {
         this.out = out;
     }
 
-    public boolean login(String username, String password) {
-        return securityManager.authenticateUser(username, password);
-    }
 
     public void Menu() {
 
@@ -110,14 +107,14 @@ public class ClientInput {
 
     private void handleCreate(String[] inputArgs) {
         int patientId = Integer.parseInt(inputArgs[1]);
-        List<Integer> workerIds = Arrays.stream(inputArgs[2].split("\\|")).map(Integer::parseInt)
+        List<String> workerNames = Arrays.stream(inputArgs[2].split("\\|"))
                 .collect(Collectors.toList());
 
         String divisionAndDescription = String.join(" ", Arrays.copyOfRange(inputArgs, 3, inputArgs.length));
         String[] separated = divisionAndDescription.split("\" \"");
         String division = separated[0].trim().replaceAll("\"", "");
         String description = separated[1].trim().replaceAll("\"", "");
-        dbHandler.create(patientId, workerIds, division, description);
+        dbHandler.create(patientName, workerNames, division, description);
         printOut("Successfully created new record");
     }
 
