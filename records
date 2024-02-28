@@ -1,3 +1,4 @@
-1;Isak;Daniel|Lisa|;Physiology;This is a description of a medical record;Kommentar 1;Kommentar 2; Kommentar 3;Lisas kommentar
+1;Isak;Daniel|Lisa|;Physiology;This is a description of a medical record;Kommentar 1;Kommentar 2; Kommentar 3;Lisas kommentar;hello;hello long comment
 2;Olivia;Noor|Jacob|;Physiology;Big problem with the patient!!;Comment about the big problem;hello;hello;hello this is a long comment;hello short
-3;Olivia;Filip|Lisa;Neurology;Patientens tillstånd stabilt.;Behandling påbörjad 2024-01-15;Nästa utvärdering planerad till 2024-02-20
+3;Olivia;Filip|Lisa|;Neurology;Patientens tillstånd stabilt.;Behandling påbörjad 2024-01-15;Nästa utvärdering planerad till 2024-02-20
+4;Isak;Lisa|Daniel|;Physiology;This is a new record
