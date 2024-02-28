@@ -53,6 +53,7 @@ public class DatabaseHandler {
         logAction("delete", recordId);
         checkAccess(record, "delete");
         db.deleteRecord(record);
+        System.out.println(db.getRecords().size());
         saveDatabaseState();
     }
 

@@ -18,6 +18,10 @@ public class Database {
     private List<Record> records = new ArrayList<>();
     private List<ActionLog> logs = new ArrayList<>();
 
+    public Database(){
+        readDatabase();
+    }
+
     public void readDatabase() {
         loadUsers();
         loadRecords();

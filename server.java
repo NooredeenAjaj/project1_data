@@ -12,11 +12,12 @@ import java.util.List;
 public class server implements Runnable {
   private ServerSocket serverSocket = null;
   private static int numConnectedClients = 0;
-  private final Database db = new Database();
+  private final Database db;
   private final SecurityConfigManager scm = new SecurityConfigManager();
 
-  public server(ServerSocket ss) throws IOException {
+  public server(ServerSocket ss, Database db) throws IOException {
     serverSocket = ss;
+    this.db = db;
     newListener();
   }
 
@@ -37,7 +38,7 @@ public class server implements Runnable {
 
       // Load database and login user
       
-      db.readDatabase();
+      
       scm.setCurrentUser(db.getUserByName(user));
 
       ClientInput clientInput = new ClientInput(db, in, out, scm);
@@ -72,7 +73,8 @@ public class server implements Runnable {
       ServerSocketFactory ssf = getServerSocketFactory(type);
       ServerSocket ss = ssf.createServerSocket(port);
       ((SSLServerSocket) ss).setNeedClientAuth(true); // enables client authentication
-      new server(ss);
+      Database db = new Database();
+      new server(ss, db);
     } catch (IOException e) {
       System.out.println("Unable to start Server: " + e.getMessage());
       e.printStackTrace();
