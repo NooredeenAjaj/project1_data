@@ -18,7 +18,7 @@ public class SecurityConfigManager {
                 }
 
                 if (currentUser instanceof Patient) {
-                    return currentUser.getName() == record.getPatientName();
+                    return currentUser.getName().equals(record.getPatientName());
                 }
                 break;
 
