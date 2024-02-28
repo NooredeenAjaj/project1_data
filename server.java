@@ -41,22 +41,6 @@ public class server implements Runnable {
       db.readDatabase();
       ClientInput clientInput = new ClientInput(db, in, out);
 
-      boolean loggedIn = false;
-
-      out.flush();
-      while (!loggedIn) {
-        out.println("Enter Username:");
-        out.println("\n");
-        String username = in.readLine();
-        out.println("Enter Password:");
-        out.println("\n");
-        String password = in.readLine();
-        loggedIn = clientInput.login(username, password);
-        if (!loggedIn) {
-          out.println("Invalid Username or Password");
-        }
-      }
-      out.println("Successfully logged in!");
 
       // This is the print-read loop
       clientInput.getUserInput();

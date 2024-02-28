@@ -32,12 +32,12 @@ public class SecurityConfigManager {
 
                 if ((currentUser instanceof Nurse || currentUser instanceof Doctor) &&
                         (currentUser.getDivision().equals(record.getDivision()) ||
-                        record.getWorkerIds().contains(currentUser.getID()))) {
+                        record.getWorkerNames().contains(currentUser.getName()))) {
                     return true;
                 }
 
                 if (currentUser instanceof Patient) {
-                    return currentUser.getID() == record.getPatientId();
+                    return currentUser.getName() == record.getPatientName();
                 }
                 break;
 

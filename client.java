@@ -16,6 +16,7 @@ import java.security.cert.*;
 
 public class client {
   public static void main(String[] args) throws Exception {
+    Console console = System.console();
     String host = null;
     int port = -1;
     for (int i = 0; i < args.length; i++) {
@@ -36,22 +37,25 @@ public class client {
     try {
       SSLSocketFactory factory = null;
       try {
-        char[] password = "password".toCharArray();
+        System.out.println("Enter your name: ");
+        String name = console.readLine().toLowerCase();
+        System.out.println("Enter your password");
+        char[] password = console.readPassword();
         KeyStore ks = KeyStore.getInstance("JKS");
         KeyStore ts = KeyStore.getInstance("JKS");
         KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
         TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
         SSLContext ctx = SSLContext.getInstance("TLSv1.2");
         // keystore password (storepass)
-        ks.load(new FileInputStream("certificates/clientkeystore"), password);
+        ks.load(new FileInputStream("certificates/" + name + "ks"), password);
         // truststore password (storepass);
-        ts.load(new FileInputStream("certificates/clienttruststore"), password);
+        ts.load(new FileInputStream("certificates/" + name + "ts"), password);
         kmf.init(ks, password); // user password (keypass)
         tmf.init(ts); // keystore can be used as truststore here
         ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
         factory = ctx.getSocketFactory();
       } catch (Exception e) {
-        throw new IOException(e.getMessage());
+        System.out.println("Incorrect credentials!");
       }
       SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
       System.out.println("\nsocket before handshake:\n" + socket + "\n");

@@ -32,24 +32,22 @@ public class Database {
                 String line = scanner.nextLine();
                 if (line.length() > 0) {
                     String[] attributes = line.split(DELIMITER);
-                    String id = attributes[0];
-                    String username = attributes[1];
-                    String role = attributes[2];
-                    String division = attributes[3];
-                    String password = attributes[4];
+                    String name = attributes[0];
+                    String role = attributes[1];
+                    String division = attributes[2];
 
                     switch (role) {
                         case "Nurse":
-                            users.add(new Nurse(username, password, division, Integer.parseInt(id)));
+                            users.add(new Nurse(name,division));
                             break;
                         case "Doctor":
-                            users.add(new Doctor(username, password, division, Integer.parseInt(id)));
+                            users.add(new Doctor(name,division));
                             break;
                         case "Patient":
-                            users.add(new Patient(username, password, division, Integer.parseInt(id)));
+                            users.add(new Patient(name,division));
                             break;
                         case "GovernmentAgency":
-                            users.add(new GovernmentAgency(username, password, Integer.valueOf(id)));
+                            users.add(new GovernmentAgency(name,division));
                             break;
 
                     }
@@ -74,8 +72,8 @@ public class Database {
                 if (line.length() > 0) {
                     String[] attributes = line.split(DELIMITER);
                     int recordId = Integer.parseInt(attributes[0]);
-                    int patientId = Integer.parseInt(attributes[1]);
-                    List<Integer> workerId = Arrays.stream(attributes[2].split("\\|")).map(Integer::parseInt)
+                    String patientName = attributes[1];
+                    List<String> workerNames = Arrays.stream(attributes[2].split("\\|"))
                             .collect(Collectors.toList());
                     String division = attributes[3];
                     String description = attributes[4];
@@ -87,7 +85,7 @@ public class Database {
                         }
                     }
 
-                    records.add(new Record(recordId, patientId, workerId, division, description, comments));
+                    records.add(new Record(recordId, patientName, workerNames, division, description, comments));
                 }
             }
 
@@ -123,24 +121,24 @@ public class Database {
         }
     }
 
-    public Person getUserByUserName(String username) {
+    public Person getUserByName(String name) {
         Optional<Person> user = users.stream()
-                .filter(u -> u.getUsername().equals(username))
+                .filter(u -> u.getName().equals(name))
                 .findAny();
         return user.orElse(null);
     }
 
-    public List<Record> getRecordsByWorkerId(int workerId) {
+    public List<Record> getRecordsByWorkerName(String workerName) {
         List<Record> foundRecords = records.stream()
-                .filter(r -> r.getWorkerIds().contains(workerId))
+                .filter(r -> r.getWorkerNames().contains(workerName))
                 .collect(Collectors.toList());
 
         return foundRecords;
     }
 
-    public List<Record> getRecordsByPatientId(int patientId) {
+    public List<Record> getRecordsByPatientId(String patientName) {
         List<Record> foundRecords = records.stream()
-                .filter(r -> r.getPatientId() == patientId)
+                .filter(r -> r.getPatientName().equals(patientName))
                 .collect(Collectors.toList());
 
         return foundRecords;

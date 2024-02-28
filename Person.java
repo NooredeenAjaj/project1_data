@@ -1,32 +1,20 @@
 
 
 public class Person {
-    private String username;
-    private String password;
     private String division;
-    private int ID;
+    private String name;
 
-    public Person(String username, String password, String division, int ID) {
-        this.username = username;
-        this.password = password;
+    public Person(String name, String division) {
         this.division = division;
-        this.ID = ID;
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
+    
+    public String getName() {
+        return name;
     }
 
     public String getDivision() {
         return division;
     }
 
-    public int getID() {
-        return ID;
-    }
 
 }

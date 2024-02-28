@@ -21,7 +21,7 @@ public class DatabaseHandler {
     }
 
     public void logAction(String action, int recordId) {
-        ActionLog actionLog = new ActionLog(securityConfigManager.getCurrentUser().getID(), recordId, action,
+        ActionLog actionLog = new ActionLog(securityConfigManager.getCurrentUser().getName(), recordId, action,
                 LocalDateTime.now());
         db.addLog(actionLog);
     }
@@ -43,11 +43,11 @@ public class DatabaseHandler {
         saveDatabaseState();
     }
 
-    public void create(int patientId, List<Integer> workerIds, String division, String description) {
+    public void create(String patientName, List<String> workerNames, String division, String description) {
         // This does not look good :(
-        workerIds.add(securityConfigManager.getCurrentUser().getID());
+        workerNames.add(securityConfigManager.getCurrentUser().getName());
         int recordId = db.getRecords().size() + 1;
-        Record record = new Record(recordId, patientId, workerIds, division, description);
+        Record record = new Record(recordId, patientName, workerNames, division, description);
         logAction("create", recordId);
         checkAccess(record, "create");
         db.saveRecord(record);

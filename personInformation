@@ -1,11 +1,11 @@
-01;Lisa;Nurse;Cancer Center;lisa12;
-02;Alice;Nurse;Cancer Center;alice02;
-03;Daniel;Doctor;Cancer Center;daniel03;
-04;Noor;Doctor;Cancer Center;noor03;
-05;Isak;Patient;Cancer Center;isak22;
-113;Filip;GovernmentAgency;Cancer Center;fil22;
-101;Emma;Nurse;Cancer Center;emma12;
-22;Jacob;Nurse;Neurology Department;jacob02;
-33;Mia;Doctor;Neurology Department;mia03;
-44;Ethan;Doctor;Neurology Department;ethan03;
-55;Olivia;Patient;Neurology Department;olivia22;
+Lisa;Nurse;Cancer;lisapass;
+Alice;Nurse;Cancer;alicepass;
+Jacob;Nurse;Neurology;jacobpass;
+Emma;Nurse;Neurology;emmapass;
+Daniel;Doctor;Cancer;danielpass;
+Noor;Doctor;Cancer;noorpass;
+Mia;Doctor;Neurology;miapass;
+Ethan;Doctor;Neurology;ethanpass
+Isak;Patient;Cancer;isakpass;
+Olivia;Patient;Neurology;oliviapass;
+Gov;GovernmentAgency;Cancer;govpass;

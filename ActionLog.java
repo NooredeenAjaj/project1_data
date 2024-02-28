@@ -2,14 +2,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ActionLog {
-    private int userId;
+    private String name;
     private int recordId;
     private String action;
     private LocalDateTime dateTime;
     private final String DELIMITER = ":";
 
-    public ActionLog(int userId, int recordId, String action, LocalDateTime dateTime) {
-        this.userId = userId;
+    public ActionLog(String name, int recordId, String action, LocalDateTime dateTime) {
+        this.name = name;
         this.recordId = recordId;
         this.action = action;
         this.dateTime = dateTime;
@@ -17,7 +17,7 @@ public class ActionLog {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(userId + DELIMITER);
+        sb.append(name + DELIMITER);
         sb.append(recordId + DELIMITER);
         sb.append(action + DELIMITER);
         sb.append(dateTime.toString());
@@ -34,7 +34,7 @@ public class ActionLog {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(userId).append(";")
+        sb.append(name).append(";")
                 .append(recordId).append(";")
                 .append(action).append(";")
                 .append(formattedDateTime).append(";");

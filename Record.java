@@ -4,27 +4,27 @@ import java.util.List;
 
 public class Record {
     private int recordId;
-    private int patientId;
-    private List<Integer> workerIds;
+    private String patientName;
+    private List<String> workerNames;
     private String division;
     private String description;
     private List<String> comments;
     private String DELIMITER = ";";
 
-    public Record(int recordId, int patientId, List<Integer> workerIds, String division, String description,
+    public Record(int recordId, String patientName, List<String> workerNames, String division, String description,
             List<String> comments) {
         this.recordId = recordId;
-        this.patientId = patientId;
-        this.workerIds = workerIds;
+        this.patientName = patientName;
+        this.workerNames = workerNames;
         this.division = division;
         this.description = description;
         this.comments = comments;
     }
 
-    public Record(int recordId, int patientId, List<Integer> workerIds, String division, String description) {
+    public Record(int recordId, String patientName, List<String> workerNames, String division, String description) {
         this.recordId = recordId;
-        this.patientId = patientId;
-        this.workerIds = workerIds;
+        this.patientName = patientName;
+        this.workerNames = workerNames;
         this.division = division;
         this.description = description;
         this.comments = new ArrayList<>();
@@ -38,12 +38,12 @@ public class Record {
         return recordId;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public String getPatientName() {
+        return patientName;
     }
 
-    public List<Integer> getWorkerIds() {
-        return workerIds;
+    public List<String> getWorkerNames() {
+        return workerNames;
     }
 
     public String getDivision() {
@@ -57,7 +57,7 @@ public class Record {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(String.valueOf(recordId) + DELIMITER);
-        sb.append(String.valueOf(patientId) + DELIMITER);
+        sb.append(patientName + DELIMITER);
         sb.append(division + DELIMITER);
         sb.append(description);
         return sb.toString();
@@ -67,10 +67,10 @@ public class Record {
         String newLine = "\n";
         StringBuilder sb = new StringBuilder();
         sb.append("RecordId : " + recordId + newLine);
-        sb.append("PatientId : " + patientId + newLine);
-        sb.append("Worker ids: " + newLine);
-        for (Integer id : workerIds) {
-            sb.append(id + newLine);
+        sb.append("Patient name: " + patientName + newLine);
+        sb.append("Worker names: " + newLine);
+        for (String workerName : workerNames) {
+            sb.append(workerName + newLine);
         }
         sb.append("Division: " + division + newLine);
         sb.append("Description: " + description + newLine);
@@ -88,8 +88,8 @@ public class Record {
         StringBuilder sb = new StringBuilder();
 
         sb.append(recordId).append(DELIMITER)
-                .append(patientId).append(DELIMITER);
-        for (Integer w : workerIds) {
+                .append(patientName).append(DELIMITER);
+        for (String w : workerNames) {
             sb.append(w).append("|");
         }
 

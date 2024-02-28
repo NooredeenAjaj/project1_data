@@ -25,12 +25,4 @@ public class Division {
         return this.members;
     }
 
-    public boolean authenticateMember(String username, String password) {
-        for (Person member : members) {
-            if (member.getUsername().equals(username) && member.getPassword().equals(password)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
