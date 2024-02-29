@@ -81,7 +81,7 @@ public class ClientInput {
                     handleCreate(inputArgs);
                     break;
                 case "list":
-                    handleList(inputArgs);
+                    Menu();
                     break;
                 default:
                     break;
@@ -98,11 +98,6 @@ public class ClientInput {
     private void printOut(String output) {
         out.println(output);
         out.println("\n");
-    }
-
-    private void handleList(String[] inputArgs) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'handleList'");
     }
 
     private void handleCreate(String[] inputArgs) {
