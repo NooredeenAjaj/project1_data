@@ -17,7 +17,7 @@ public class ClientInput {
 
     private final String readCommand = "read [recordId]";
     private final String writeCommand = "write [recordId] [comment]";
-    private final String listCommand = "list [patient name]";
+    private final String listCommand = "list";
     private final String createCommand = "create [patient name] [associated nurse] [\"division\"] [\"description\"]";
     private final String deleteCommand = "delete [recordId]";
     private String[] menu = {
